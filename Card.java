@@ -9,12 +9,12 @@ import greenfoot.*;
 
 public class Card extends Actor
 {
-    protected enum Color
+    public enum Color
     {
         RED, BLUE, GREEN, NO_COLOR
     }
     
-    protected enum Shape
+    public enum Shape
     {
         SQUARE, CIRCLE, TRIANGLE, NO_SHAPE
     }

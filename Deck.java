@@ -6,13 +6,46 @@
  */
 
 import greenfoot.*;
+import java.util.ArrayList;
 
 public class Deck 
 {
+    Card[] unShuffledDeck = new Card[81];
+    ArrayList shuffledDeck = new ArrayList<>();
+    
+    
+    //getNumCardsInDeck keeps track of how many unused cards remain in the deck
+    //getTopCard returns the top card of the deck as the cards are dealt.
+    //getShuffledCard returns a card at a specific location in the deck.
+    //getShuffledDeck returns the entire shuffled deck.
+    //limitNumCardsInDeck forces the number of cards in the unshuffled deck 
+        //to either be 27 (3 set of 3 characteristics of triples) or 
+        //81(3 set of 4 characteristics of triples).
+    //populateUnShuffledDeckWithCards which initializes all the cards to the 
+        //unshuffled deck.
+    //createShuffledDeck shuffles the unshuffled deck to form the shuffled deck.
+        //Removes blank card
     /****************************************************
     ***   Leave as comment until ready to implement   ***
-    *****************************************************
-    // adds all the cards to the unshuffled deck.   
+    *****************************************************/
+    //adds all the cards to the unshuffled deck.   
+    private void createShuffledDeck()
+    {
+        ArrayList positionsRemaining = new ArrayList<Integer>();
+        for (int i = 1; i <= unShuffledDeck.length; i++)
+        {
+            shuffledDeck.add(unShuffledDeck[i]);
+            positionsRemaining.add(i);
+        }
+        
+        for (Card card : unShuffledDeck)
+        {
+            int randomIndex = (int) (positionsRemaining.size() * Math.random() + 1);
+            shuffledDeck.add(randomIndex, card);
+            positionsRemaining.remove(randomIndex);
+        }
+    }
+    
     private void populateUnshuffledDeckWithCards(int numOfCardsInDeck)        
     {
         unShuffledDeck[0] = new Card(Card.Shape.NO_SHAPE, Card.Color.NO_COLOR,0,0,
@@ -269,5 +302,4 @@ public class Deck
           }
     }
     
-    **************  END OF COMMENT BLOCK  ***************/
 }
