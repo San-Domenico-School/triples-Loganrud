@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class Deck 
 {
-    Card[] unShuffledDeck = new Card[81];
-    ArrayList shuffledDeck = new ArrayList<>();
+    Card[] unShuffledDeck = new Card[82];
+    ArrayList<Card> shuffledDeck = new ArrayList<Card>();
     
     
     //getNumCardsInDeck keeps track of how many unused cards remain in the deck
@@ -31,21 +31,64 @@ public class Deck
     //adds all the cards to the unshuffled deck.   
     private void createShuffledDeck()
     {
-        ArrayList positionsRemaining = new ArrayList<Integer>();
-        for (int i = 1; i <= unShuffledDeck.length; i++)
+        
+        for (int i = 1; i < unShuffledDeck.length; i++)
         {
-            shuffledDeck.add(unShuffledDeck[i]);
-            positionsRemaining.add(i);
+            int randomIndex = (int) (Math.random() * (shuffledDeck.size() + 1));
+            shuffledDeck.add(randomIndex, unShuffledDeck[i]);
+            
         }
         
-        for (Card card : unShuffledDeck)
+    }
+    
+    public int getNumCardsInDeck()
+    {
+        return shuffledDeck.size();
+    }
+    
+    protected Card getTopCard()
+    {
+        return shuffledDeck.remove(0);
+    }
+    
+    protected Card getShuffledCard(int index)
+    {
+        if (index >= 0 && index < shuffledDeck.size())
         {
-            int randomIndex = (int) (positionsRemaining.size() * Math.random() + 1);
-            shuffledDeck.add(randomIndex, card);
-            positionsRemaining.remove(randomIndex);
+            return shuffledDeck.get(index);
+        }
+        else
+        {
+            return null;
         }
     }
     
+    protected ArrayList<Card> getShuffledDeck()
+    {
+        return shuffledDeck;
+    }
+    
+    protected int limitNumCardsInDeck(int numCards)
+    {
+        if (numCards < 27) 
+        {
+            return 27;
+        }
+        else 
+        {
+            return 81;
+        }
+    }
+    
+    public Deck(int numOfCardsInDeck)
+    {
+        numOfCardsInDeck = limitNumCardsInDeck(numOfCardsInDeck);  // limits size to 27 or 81        
+        unShuffledDeck = new Card[numOfCardsInDeck + 1];           // playing cards plus blank card
+        shuffledDeck = new ArrayList<>();                          // Instantiates ArrayList with no elements
+        populateUnshuffledDeckWithCards(numOfCardsInDeck);         // Initializes Unshuffled Deck
+        createShuffledDeck();                                      // Initializes shuffled deck excluding blank card
+    }
+
     private void populateUnshuffledDeckWithCards(int numOfCardsInDeck)        
     {
         unShuffledDeck[0] = new Card(Card.Shape.NO_SHAPE, Card.Color.NO_COLOR,0,0,
