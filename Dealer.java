@@ -85,7 +85,10 @@ public class Dealer extends Actor
     
     public void endGame()
     {
-        
+        if (triplesRemaining == 0)
+        {
+            Greenfoot.stop();
+        }
     }
     
     public void checkIfTriple(Card[] cardsSelected)
@@ -115,25 +118,31 @@ public class Dealer extends Actor
             cardLocation[i][1] = cardsSelected[i].getY();  // y-coordinate
         }
         Animations.slideAndTurn();
-        // 2. Remove the cards from the board
+        // Remove the cards from the board
         for (int i = 0; i < cardsSelected.length; i++) 
         {
             int x = cardLocation[i][0];
             int y = cardLocation[i][1];
-            
+            getWorld().removeObject(cardsSelected[i]);
         }
 
-        // 3. Deal new cards and add them to the board
+        // Deal new cards and add them to the board
         for (int i = 0; i < cardsSelected.length; i++) 
         {
             int x = cardLocation[i][0];
             int y = cardLocation[i][1];
-             
+            Card card = deck.getTopCard();
+            getWorld().addObject(card,  x,  y);
         }
 
-        // 4. Decrement triplesRemaining
+        // Decrement triplesRemaining
         triplesRemaining--;
-        
+        //Update score
+        Scorekeeper.updateScore();
+        //update UI
+        setUI();
+        //check endGame
+        endGame();
         
         
     }

@@ -43,6 +43,7 @@ public class Player extends Actor
     
     private void selectCards()
     {
+        cardsOnBoard = new ArrayList<>(getWorld().getObjects(Card.class));
         for (Card card: cardsOnBoard)
         {
             if(Greenfoot.mouseClicked(card))
@@ -76,9 +77,11 @@ public class Player extends Actor
     {
         if (selectedCardsIndex.size() == 3)
         {
-            cardsSelected[0] = cardsOnBoard.get(selectedCardsIndex.get(0));
-            cardsSelected[1] = cardsOnBoard.get(selectedCardsIndex.get(1));
-            cardsSelected[2] = cardsOnBoard.get(selectedCardsIndex.get(2));
+            for (int i = 0; i < 3; i++)
+            {
+                int index = selectedCardsIndex.get(i);
+                cardsSelected[i] = cardsOnBoard.get(index);
+            }
             return true;
         }
         else
