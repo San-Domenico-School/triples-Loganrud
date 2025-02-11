@@ -77,10 +77,10 @@ public class Dealer extends Actor
     
     public void setUI()
     {
-        Integer cardsRemaining = new Integer(numCardsInDeck - 15);
-        Integer score = new Integer(0);
-        getWorld().getBackground().drawString(cardsRemaining.toString(), 305, 475);
-        getWorld().getBackground().drawString(score.toString(), 308, 510);
+        Integer cardsRemaining = new Integer(deck.getNumCardsInDeck());
+        Integer score = new Integer(Scorekeeper.getScore());
+        getWorld().showText(cardsRemaining.toString(), 312, 470);
+        getWorld().showText(score.toString(), 312, 507);
     }
     
     public void endGame()
@@ -95,9 +95,13 @@ public class Dealer extends Actor
     {
         this.cardsSelected = cardsSelected;
         checkShape(cardsSelected);
+        //System.out.println("Shape"+ checkShape(cardsSelected));
         checkColor(cardsSelected);
+        //System.out.println("Color"+ checkColor(cardsSelected));
         checkShading(cardsSelected);
+        //System.out.println("Shading"+ checkShading(cardsSelected));
         checkNumberOfShapes(cardsSelected);
+        //System.out.println("NumOfShapes"+ checkNumberOfShapes(cardsSelected));
         if(checkShape(cardsSelected) && checkColor(cardsSelected) 
         && checkShading(cardsSelected) && checkNumberOfShapes(cardsSelected) == true)
         {
@@ -192,7 +196,7 @@ public class Dealer extends Actor
         if (cardsSelected[0].getShading() == cardsSelected[1].getShading()  
         && cardsSelected[0].getShading() == cardsSelected[2].getShading())
         {
-            shapeType = true;
+            shadingType = true;
         }
         else if (cardsSelected[0].getShading() != cardsSelected[1].getShading()  
         && cardsSelected[0].getShading() != cardsSelected[2].getShading()

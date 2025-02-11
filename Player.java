@@ -19,7 +19,7 @@ public class Player extends Actor
     public Player(Dealer aDealer)
     {
         dealer = aDealer;
-        cardsSelected = new Card[2]; 
+        cardsSelected = new Card[3]; 
         cardsOnBoard = new ArrayList<>(); 
         selectedCardsIndex = new ArrayList<>();
     }

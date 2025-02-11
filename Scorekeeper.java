@@ -15,7 +15,8 @@ public class Scorekeeper
     }
     public static void updateScore()
     {
-        score = score + (int)(1000000 / (System.currentTimeMillis() - startTime));
+        if(System.currentTimeMillis() - startTime != 0)
+            score = score + (int)(1000000 / (System.currentTimeMillis() - startTime));
     }
     public static int getScore()
     {
